@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,14 @@ namespace YoutubeApi.Service
 {
     internal class PlayListItem : IPlayListItem
     {
-        public string URL => throw new NotImplementedException();
+        IHttpRequest HttpRequest { get; set; }
+
+        public string URL => "playlistItems";
+
+        public PlayListItem(IHttpRequest httpRequest)
+        {
+            HttpRequest = httpRequest;
+        }
 
         public Task<AddVideoItem> AddVideoItemAsync(string playlistId, string videoId)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,14 @@ namespace YoutubeApi.Service
 {
     internal class Subscription : ISubscription
     {
-        public string URL => throw new NotImplementedException();
+        IHttpRequest HttpRequest { get; set; }
+
+        public string URL => "subscriptions";
+
+        public Subscription(IHttpRequest httpRequest)
+        {
+            HttpRequest = httpRequest;
+        }
 
         public Task<Model.Subscription> SubscriptionChannelAsync(string channelId)
         {
