@@ -10,7 +10,7 @@ namespace YoutubeApi.Interface
     internal interface ISubscription : IBaseApi
     {
         //11. SubscriptionChannel
-        Task<Subscription> SubscriptionChannelAsync(string channelId);
+        Task<SubscriptionChannel> SubscriptionChannelAsync(string channelId);
 
         //12. UnSubscriptionChannel
         Task<DeleteResult> UnScriptionChannelAsync(string id);

@@ -22,7 +22,25 @@ namespace YoutubeApi.Service
 
         public Task<AddVideoItem> AddVideoItemAsync(string playlistId, string videoId)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> urlParam = new Dictionary<string, string>
+            {
+                { "part", "snippet" },
+            };
+
+            var input = new
+            {
+                snippet = new
+                {
+                    playlistId,
+                    resourceId = new
+                    {
+                        kind = "youtube#video",
+                        videoId
+                    }
+                }
+            };
+
+            return HttpRequest.PostAsync<AddVideoItem>(URL, input, urlParam);
         }
     }
 }

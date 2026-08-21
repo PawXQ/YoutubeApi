@@ -19,11 +19,15 @@ namespace YoutubeApi
         private IPlayList _playList;
         public IPlayList PlayList => _playList;
 
+        private IPlayListItem _playListItem;
+        public IPlayListItem PlayListItem => _playListItem;
+
         public YoutubeContext(string baseurl, string token)
         {
             IHttpRequest httpRequest = new HttpRequest(baseUrl: baseurl, token: token);
             _video = new Video(httpRequest);
             _playList = new PlayList(httpRequest);
+            _playListItem = new PlayListItem(httpRequest);
         }
     }
 }

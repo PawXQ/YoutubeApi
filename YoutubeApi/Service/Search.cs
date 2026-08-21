@@ -22,12 +22,26 @@ namespace YoutubeApi.Service
 
         public Task<GetPublishVideo> GetPublishVideoAsync()
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> urlParam = new Dictionary<string, string>
+            {
+                { "part", "snippet" },
+                { "forMine", "true" },
+                { "type", "video" },
+            };
+
+            return HttpRequest.GetAsync<GetPublishVideo>(URL, urlParam);
         }
 
         public Task<SearchVideo> SearchVideoAsync(string query)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> urlParam = new Dictionary<string, string>
+            {
+                { "part", "snippet" },
+                { "q", query },
+                { "type", "video" },
+            };
+
+            return HttpRequest.GetAsync<SearchVideo>(URL, urlParam);
         }
     }
 }
