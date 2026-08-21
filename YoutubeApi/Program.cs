@@ -16,7 +16,7 @@ namespace YoutubeApi
 
 
             string baseurl = "https://www.googleapis.com/youtube/v3/";
-            string token = "ya29.a0AdMD6Ei8Tb07rgU0OyC97qubZmdThSc5AjzuHEwykEZwXF6fX8JbWBH4CqKD6jnVwW0oqr_evXNkjDa1k4fSCqJeSS26Y6Rc4WXioaDMTlTHy1r9oHp_LOvyY8LrRCLussDRjx6s3ZFVeqFOVawN3YUqttD8y40kqZoNT3eNb356Zsb95nc7m5zct6eBgtoM1B8pHezzfs4Qq0lLXyTmAQG3vys8km9VD6hDFZps2yAp-lmtqN2YugQp6Ya-vOqdIotcv0eyjT6pwWDrX6JN-3HhYJZfaCgYKAdUSARcSFQHGX2MiQPE3YvSY6t6MBy0rgCcXBA0291";
+            string token = "";
 
             YoutubeContext youtubeContext = new YoutubeContext(baseurl, token);
 
