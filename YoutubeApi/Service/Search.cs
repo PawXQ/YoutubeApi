@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public Task<GetPublishVideo> GetPublishVideoAsync()
+        public Task<ResponseResult<GetPublishVideo>> GetPublishVideoAsync()
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -32,7 +33,7 @@ namespace YoutubeApi.Service
             return HttpRequest.GetAsync<GetPublishVideo>(URL, urlParam);
         }
 
-        public Task<SearchVideo> SearchVideoAsync(string query)
+        public Task<ResponseResult<SearchVideo>> SearchVideoAsync(string query)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {

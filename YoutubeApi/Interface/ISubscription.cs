@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace YoutubeApi.Interface
     internal interface ISubscription : IBaseApi
     {
         //11. SubscriptionChannel
-        Task<SubscriptionChannel> SubscriptionChannelAsync(string channelId);
+        Task<ResponseResult<SubscriptionChannel>> SubscriptionChannelAsync(string channelId);
 
         //12. UnSubscriptionChannel
-        Task<DeleteResult> UnScriptionChannelAsync(string id);
+        Task<ResponseResult> UnScriptionChannelAsync(string id);
     }
 }

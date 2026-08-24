@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public Task<CreatePlayList> CreatePlayListAsync(string title)
+        public Task<ResponseResult<CreatePlayList>> CreatePlayListAsync(string title)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -40,24 +41,24 @@ namespace YoutubeApi.Service
             return HttpRequest.PostAsync<CreatePlayList>(URL, input, urlParam);
         }
 
-        public async Task<DeleteResult> DeletePlayListAsync(string id)
+        public Task<ResponseResult> DeletePlayListAsync(string id)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
                 { "id", id },
             };
 
-            HttpResponseMessage response = await HttpRequest.DeleteAsync(URL, urlParam);
+            return HttpRequest.DeleteAsync(URL, urlParam);
 
-            return new DeleteResult
-            {
-                IsSuccess = response.IsSuccessStatusCode,
-                StatusCode = (int)response.StatusCode,
-                Message = response.ReasonPhrase.ToString(),
-            };
+            //return new DeleteResult
+            //{
+            //    IsSuccess = response.IsSuccessStatusCode,
+            //    StatusCode = (int)response.StatusCode,
+            //    Message = response.ReasonPhrase.ToString(),
+            //};
         }
 
-        public Task<ModifyPlayList> ModifyPlayListAsync(string id, string title)
+        public Task<ResponseResult<ModifyPlayList>> ModifyPlayListAsync(string id, string title)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {

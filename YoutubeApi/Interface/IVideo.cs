@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -12,21 +13,21 @@ namespace YoutubeApi.Interface
     internal interface IVideo : IBaseApi
     {
         //2. GetVideoInfo
-        Task<GetVideoInfo> GetVideoInfoAsync(string id);
+        Task<ResponseResult<GetVideoInfo>> GetVideoInfoAsync(string id);
 
         //3. VideoRating
-        Task<HttpResponseMessage> VideoRanting(string id, VideoRating videoRanting);
+        Task<ResponseResult<HttpResponseMessage>> VideoRanting(string id, VideoRating videoRanting);
 
         //6. ModifyVideoInfo
-        Task<ModifyVideoInfo> ModifyVideoInfoAsync(string id, string title, string categoryId = null);
+        Task<ResponseResult<ModifyVideoInfo>> ModifyVideoInfoAsync(string id, string title, string categoryId = null);
 
         //7. DeleteVideo
-        Task<DeleteResult> DeleteVideoAsync(string id);
+        Task<ResponseResult> DeleteVideoAsync(string id);
 
         //8. GetLikeVideo
-        Task<GetLikeVideo> GetLikeVideosAsync();
+        Task<ResponseResult<GetLikeVideo>> GetLikeVideosAsync();
 
         //9. GetUnLikeVideo
-        Task<GetUnLikeVideo> GetUnLikeVideosAsync();
+        Task<ResponseResult<GetUnLikeVideo>> GetUnLikeVideosAsync();
     }
 }

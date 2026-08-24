@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace YoutubeApi.Interface
     internal interface IPlayListItem : IBaseApi
     {
         //4. AddVideoItem
-        Task<AddVideoItem> AddVideoItemAsync(string playlistId, string videoId);
+        Task<ResponseResult<AddVideoItem>> AddVideoItemAsync(string playlistId, string videoId);
     }
 }

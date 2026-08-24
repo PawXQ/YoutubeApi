@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public Task<AddVideoCommentThread> AddVideoCommentThreadAsync(string channelId, string videoId, string comment)
+        public Task<ResponseResult<AddVideoCommentThread>> AddVideoCommentThreadAsync(string channelId, string videoId, string comment)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -46,7 +47,7 @@ namespace YoutubeApi.Service
             return HttpRequest.PostAsync<AddVideoCommentThread>(URL, input, urlParam);
         }
 
-        public Task<GetVideoCommentThread> GetVideoCommentThreadAsync(string videoId)
+        public Task<ResponseResult<GetVideoCommentThread>> GetVideoCommentThreadAsync(string videoId)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {

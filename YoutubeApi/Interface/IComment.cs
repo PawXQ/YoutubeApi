@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,12 @@ namespace YoutubeApi.Interface
     internal interface IComment : IBaseApi
     {
         //17. GetCommentListResponseAsync
-        Task<GetCommentListResponse> GetCommentListResponseAsync(string parentId);
+        Task<ResponseResult<GetCommentListResponse>> GetCommentListResponseAsync(string parentId);
 
         //19. DeleteComment
-        Task<DeleteResult> DeleteCommentAsync(string commentId);
+        Task<ResponseResult> DeleteCommentAsync(string commentId);
 
         //20. ModifyComment
-        Task<ModefiyComment> ModefiyCommentAsync(string channelId, string commentId, string comment);
+        Task<ResponseResult<ModefiyComment>> ModefiyCommentAsync(string channelId, string commentId, string comment);
     }
 }

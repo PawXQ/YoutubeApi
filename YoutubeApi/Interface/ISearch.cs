@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace YoutubeApi.Interface
     internal interface ISearch : IBaseApi
     {
         //1. SearchVideo
-        Task<SearchVideo> SearchVideoAsync(string query);
+        Task<ResponseResult<SearchVideo>> SearchVideoAsync(string query);
+
         //10. GetPublishVideo
-        Task<GetPublishVideo> GetPublishVideoAsync();
+        Task<ResponseResult<GetPublishVideo>> GetPublishVideoAsync();
     }
 }

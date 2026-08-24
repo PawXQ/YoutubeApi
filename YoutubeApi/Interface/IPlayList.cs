@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,12 @@ namespace YoutubeApi.Interface
     internal interface IPlayList : IBaseApi
     {
         //13. CreatePlayList
-        Task<CreatePlayList> CreatePlayListAsync(string title);
+        Task<ResponseResult<CreatePlayList>> CreatePlayListAsync(string title);
 
         //14. DeletePlayList
-        Task<DeleteResult> DeletePlayListAsync(string id);
+        Task<ResponseResult> DeletePlayListAsync(string id);
 
         //15. ModdifyPlayList
-        Task<ModifyPlayList> ModifyPlayListAsync(string id, string title);
+        Task<ResponseResult<ModifyPlayList>> ModifyPlayListAsync(string id, string title);
     }
 }

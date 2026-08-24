@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +22,25 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public async Task<DeleteResult> DeleteCommentAsync(string commentId)
+        public Task<ResponseResult> DeleteCommentAsync(string commentId)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
                 { "commentId", commentId },
             };
 
-            HttpResponseMessage response = await HttpRequest.DeleteAsync(URL, urlParam);
+            return HttpRequest.DeleteAsync(URL, urlParam);
 
-            return new DeleteResult
-            {
-                IsSuccess = response.IsSuccessStatusCode,
-                StatusCode = (int)response.StatusCode,
-                Message = response.ReasonPhrase.ToString(),
-            };
+
+            //return new DeleteResult
+            //{
+            //    IsSuccess = response.IsSuccessStatusCode,
+            //    StatusCode = (int)response.StatusCode,
+            //    Message = response.ReasonPhrase.ToString(),
+            //};
         }
 
-        public Task<GetCommentListResponse> GetCommentListResponseAsync(string parentId)
+        public Task<ResponseResult<GetCommentListResponse>> GetCommentListResponseAsync(string parentId)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -49,7 +51,7 @@ namespace YoutubeApi.Service
             return HttpRequest.GetAsync<GetCommentListResponse>(URL, urlParam);
         }
 
-        public Task<ModefiyComment> ModefiyCommentAsync(string channelId, string commentId, string comment)
+        public Task<ResponseResult<ModefiyComment>> ModefiyCommentAsync(string channelId, string commentId, string comment)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {

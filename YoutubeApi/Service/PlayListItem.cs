@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public Task<AddVideoItem> AddVideoItemAsync(string playlistId, string videoId)
+        public Task<ResponseResult<AddVideoItem>> AddVideoItemAsync(string playlistId, string videoId)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {

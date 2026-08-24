@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using HttpUtility.Utility;
 using Newtonsoft.Json;
 using System;
@@ -25,7 +26,7 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public Task<GetUnLikeVideo> GetUnLikeVideosAsync()
+        public Task<ResponseResult<GetUnLikeVideo>> GetUnLikeVideosAsync()
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -36,7 +37,7 @@ namespace YoutubeApi.Service
             return HttpRequest.GetAsync<GetUnLikeVideo>(URL, urlParam);
         }
 
-        public Task<GetVideoInfo> GetVideoInfoAsync(string id)
+        public Task<ResponseResult<GetVideoInfo>> GetVideoInfoAsync(string id)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -47,7 +48,7 @@ namespace YoutubeApi.Service
             return HttpRequest.GetAsync<GetVideoInfo>(URL, urlParam);
         }
 
-        public Task<HttpResponseMessage> VideoRanting(string id, VideoRating videoRanting)
+        public Task<ResponseResult<HttpResponseMessage>> VideoRanting(string id, VideoRating videoRanting)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -58,7 +59,7 @@ namespace YoutubeApi.Service
             return HttpRequest.PostAsync<HttpResponseMessage>(URL, urlParam: urlParam);
         }
 
-        public Task<ModifyVideoInfo> ModifyVideoInfoAsync(string id, string title, string categoryId = "22")
+        public Task<ResponseResult<ModifyVideoInfo>> ModifyVideoInfoAsync(string id, string title, string categoryId = "22")
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -78,24 +79,17 @@ namespace YoutubeApi.Service
             return HttpRequest.PutAsync<ModifyVideoInfo>(URL, input, urlParam);
         }
 
-        public async Task<DeleteResult> DeleteVideoAsync(string id)
+        public Task<ResponseResult> DeleteVideoAsync(string id)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
                 { "id", id },
             };
 
-            HttpResponseMessage response = await HttpRequest.DeleteAsync(URL, urlParam);
-
-            return new DeleteResult
-            {
-                IsSuccess = response.IsSuccessStatusCode,
-                StatusCode = (int)response.StatusCode,
-                Message = response.ReasonPhrase.ToString(),
-            };
+            return HttpRequest.DeleteAsync(URL, urlParam);
         }
 
-        public Task<GetLikeVideo> GetLikeVideosAsync()
+        public Task<ResponseResult<GetLikeVideo>> GetLikeVideosAsync()
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HttpUtility.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace YoutubeApi.Interface
     internal interface ICommentThread : IBaseApi
     {
         //16. GetVideoCommentThread
-        Task<GetVideoCommentThread> GetVideoCommentThreadAsync(string videoId);
+        Task<ResponseResult<GetVideoCommentThread>> GetVideoCommentThreadAsync(string videoId);
 
         //18. AddVideoCommentThread
-        Task<AddVideoCommentThread> AddVideoCommentThreadAsync(string channelId, string videoId, string comment);
+        Task<ResponseResult<AddVideoCommentThread>> AddVideoCommentThreadAsync(string channelId, string videoId, string comment);
     }
 }

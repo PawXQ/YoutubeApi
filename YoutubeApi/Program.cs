@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HttpUtility.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace YoutubeApi
 
 
             string baseurl = "https://www.googleapis.com/youtube/v3/";
-            string token = "ya29.a0AdMD6EicD-z-NzaWZrG8AZ46T0zIR6rE3TvYJbRzZnhfDrNk76cJ6tvE_PZPMeX3Wyiqiq4cLtxqFZJLy7vzqbwS-dlKJKMVK-Ez5u7AlRYy45RcYRObdMqi9iQCoFtdRQ3cyj_q7woYC3PPCw96FQQZ2uBVqzen-IfTDOsRuUvZ_qvH49GaIH66rwDt4K2gzbxSFlnr0qGtslkj9h9zrnK4uryag5ECx7Vwc-zsHLXhNBEkm-Kzj_L0ghkHxVVLKh6CHomRQjbslP3CIyuAJ6F_UbgaCgYKARgSARcSFQHGX2MiieDidUbFf1orpXteNzNm3Q0290";
+            string token = "ya29.a0AdMD6Ej1Nash1A-rsatvq9N9amjUlvIB1RPa3o_pRVylzailI27i_f7ednGcg48OhY03noBriWDiY_UjxX4wsYVywdH2twDWgAV7omGiLBSFs5YQcoGikPfyGmC-SFel_BRiI52N0Ugoxjl3nMRYqpEQ9HdTo-FAYTsPp_akubQs1ThyPevUs38PaWJynIc2QjIozfr2jEwlWA6M1ST2db03zTDKo4G9hcm1CCdXjsNlSVZzeO2JgBuRyc5Y1smX_5zQ5i2k-6FEW55ygqosGrZnEcgaCgYKATQSARcSFQHGX2Mi0QWHbGj5J8fuJnq1En5Rrw0290";
 
             YoutubeContext youtubeContext = new YoutubeContext(baseurl, token);
 
@@ -29,7 +30,7 @@ namespace YoutubeApi
             ////13. CreatePlayList
             //string title = "20260821";
 
-            //CreatePlayList createPlayList = await youtubeContext.PlayList.CreatePlayListAsync(title);
+            //ResponseResult<CreatePlayList> createPlayList = await youtubeContext.PlayList.CreatePlayListAsync(title);
 
 
             //////14. DeletePlayList
@@ -45,12 +46,12 @@ namespace YoutubeApi
             //Task<ModifyPlayList> modifyPlayList = youtubeContext.PlayList.ModifyPlayListAsync(id, title);
 
             ////4. AddVideoItemAsync
-            string playListId = "PLMiT3c4Gvk6M";
+            string playListId = "PLDNxnLJzXwho";
             string videoId = "4mJayYlfcWo";
-            AddVideoItem addVideoItem = await youtubeContext.PlayListItem.AddVideoItemAsync(playListId, videoId);
+            ResponseResult<AddVideoItem> addVideoItem = await youtubeContext.PlayListItem.AddVideoItemAsync(playListId, videoId);
 
 
-            Console.WriteLine(JsonConvert.SerializeObject(addVideoItem));
+            Console.WriteLine(addVideoItem.RawContent);
             Console.ReadKey();
         }
     }

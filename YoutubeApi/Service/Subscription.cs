@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace YoutubeApi.Service
             HttpRequest = httpRequest;
         }
 
-        public Task<SubscriptionChannel> SubscriptionChannelAsync(string channelId)
+        public Task<ResponseResult<SubscriptionChannel>> SubscriptionChannelAsync(string channelId)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -40,21 +41,14 @@ namespace YoutubeApi.Service
             return HttpRequest.PostAsync<SubscriptionChannel>(URL, input, urlParam);
         }
 
-        public async Task<DeleteResult> UnScriptionChannelAsync(string id)
+        public Task<ResponseResult> UnScriptionChannelAsync(string id)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
                 { "id", id },
             };
 
-            HttpResponseMessage response = await HttpRequest.DeleteAsync(URL, urlParam);
-
-            return new DeleteResult
-            {
-                IsSuccess = response.IsSuccessStatusCode,
-                StatusCode = (int)response.StatusCode,
-                Message = response.ReasonPhrase.ToString(),
-            };
+            return HttpRequest.DeleteAsync(URL, urlParam);
         }
     }
 }
