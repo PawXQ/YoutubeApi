@@ -16,7 +16,12 @@ namespace YoutubeApi.Interface
         Task<ResponseResult<GetVideoInfo>> GetVideoInfoAsync(string id);
 
         //3. VideoRating
-        Task<ResponseResult<HttpResponseMessage>> VideoRanting(string id, VideoRating videoRanting);
+        Task<ResponseResult> VideoRating(string id, VideoRating videoRating);
+
+        //5.1 VideoResumableUploadURL
+        //Task<ResponseResult<HttpResponseMessage>> VideoResumableUploadURL(string id, VideoRating videoRanting);
+
+        //5.2 VideoResumableUpload
 
         //6. ModifyVideoInfo
         Task<ResponseResult<ModifyVideoInfo>> ModifyVideoInfoAsync(string id, string title, string categoryId = null);

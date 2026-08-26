@@ -3,8 +3,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using YoutubeApi.Enum;
 using YoutubeApi.Model;
 using static YoutubeApi.Model.GetUnLikeVideo;
 
@@ -18,7 +20,7 @@ namespace YoutubeApi
 
 
             string baseurl = "https://www.googleapis.com/youtube/v3/";
-            string token = "ya29.a0AdMD6Ej1Nash1A-rsatvq9N9amjUlvIB1RPa3o_pRVylzailI27i_f7ednGcg48OhY03noBriWDiY_UjxX4wsYVywdH2twDWgAV7omGiLBSFs5YQcoGikPfyGmC-SFel_BRiI52N0Ugoxjl3nMRYqpEQ9HdTo-FAYTsPp_akubQs1ThyPevUs38PaWJynIc2QjIozfr2jEwlWA6M1ST2db03zTDKo4G9hcm1CCdXjsNlSVZzeO2JgBuRyc5Y1smX_5zQ5i2k-6FEW55ygqosGrZnEcgaCgYKATQSARcSFQHGX2Mi0QWHbGj5J8fuJnq1En5Rrw0290";
+            string token = "";
 
             YoutubeContext youtubeContext = new YoutubeContext(baseurl, token);
 
@@ -45,13 +47,18 @@ namespace YoutubeApi
 
             //Task<ModifyPlayList> modifyPlayList = youtubeContext.PlayList.ModifyPlayListAsync(id, title);
 
-            ////4. AddVideoItemAsync
-            string playListId = "PLDNxnLJzXwho";
-            string videoId = "4mJayYlfcWo";
-            ResponseResult<AddVideoItem> addVideoItem = await youtubeContext.PlayListItem.AddVideoItemAsync(playListId, videoId);
+            //////4. AddVideoItemAsync
+            //string playListId = "PLDNxnLJzXwho";
+            //string videoId = "4mJayYlfcWo";
+            //ResponseResult<AddVideoItem> addVideoItem = await youtubeContext.PlayListItem.AddVideoItemAsync(playListId, videoId);
+
+            //////3. VideoRating
+            string id = "j1TTQREaZMg";
+            VideoRating videoRating = VideoRating.Like;
+            ResponseResult videoRatingResponse = await youtubeContext.Video.VideoRating(id, videoRating);
 
 
-            Console.WriteLine(addVideoItem.RawContent);
+            Console.WriteLine(videoRatingResponse.RawContent);
             Console.ReadKey();
         }
     }

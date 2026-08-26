@@ -48,15 +48,15 @@ namespace YoutubeApi.Service
             return HttpRequest.GetAsync<GetVideoInfo>(URL, urlParam);
         }
 
-        public Task<ResponseResult<HttpResponseMessage>> VideoRanting(string id, VideoRating videoRanting)
+        public Task<ResponseResult> VideoRating(string id, VideoRating videoRating)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
                 { "id", id },
-                { "rating", videoRanting.ToString() }
+                { "rating", videoRating.ToString() }
             };
 
-            return HttpRequest.PostAsync<HttpResponseMessage>(URL, urlParam: urlParam);
+            return HttpRequest.PostAsync($"{URL}/rate", urlParam: urlParam);
         }
 
         public Task<ResponseResult<ModifyVideoInfo>> ModifyVideoInfoAsync(string id, string title, string categoryId = "22")
