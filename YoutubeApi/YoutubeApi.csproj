@@ -69,11 +69,13 @@
     <Compile Include="Model\GetUnLikeVideo.cs" />
     <Compile Include="Model\GetVideoCommentThread.cs" />
     <Compile Include="Model\GetVideoInfo.cs" />
+    <Compile Include="Model\HttpContent\MultipartRelatedContent.cs" />
     <Compile Include="Model\ModefiyComment.cs" />
     <Compile Include="Model\ModifyPlayList.cs" />
     <Compile Include="Model\ModifyVideoInfo.cs" />
     <Compile Include="Model\SearchVideo.cs" />
     <Compile Include="Model\SubscriptionChannel.cs" />
+    <Compile Include="Model\VideoSingleUpload.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Comment.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Service\Search.cs" />
     <Compile Include="Service\Subscription.cs" />
     <Compile Include="Service\Video.cs" />
+    <Compile Include="SingleUploadDemo.cs" />
     <Compile Include="YoutubeContext.cs" />
   </ItemGroup>
   <ItemGroup>

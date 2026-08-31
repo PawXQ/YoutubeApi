@@ -4,14 +4,17 @@ using HttpUtility.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using YoutubeApi.Enum;
 using YoutubeApi.Interface;
 using YoutubeApi.Model;
+using YoutubeApi.Model.HttpContent;
 
 namespace YoutubeApi.Service
 {
@@ -98,6 +101,47 @@ namespace YoutubeApi.Service
             };
 
             return HttpRequest.GetAsync<GetLikeVideo>(URL, urlParam);
+        }
+
+        public async Task<ResponseResult<VideoSingleUpload>> VideoSingleUploadAsync(FileStream fileStream, string title, string categoryId = "22", string privacyStatus = "private")
+        {
+            ResponseResult<VideoSingleUpload> responseResult = null;
+
+            Dictionary<string, string> urlParam = new Dictionary<string, string>
+            {
+                { "uploadType", "multipart" },
+                { "part", "snippet,status" },
+            };
+
+            var jsonMetadata = new
+            {
+                snippet = new
+                {
+                    title,
+                    categoryId,
+                },
+                status = new
+                {
+                    privacyStatus
+                }
+            };
+            string jsonString = JsonConvert.SerializeObject(jsonMetadata);
+
+            MultipartContent multipartContent = new MultipartContent("related");
+            var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            multipartContent.Add(jsonContent);
+
+            using (var videoContent = new StreamContent(fileStream))
+            {
+                videoContent.Headers.ContentType = new MediaTypeHeaderValue("video/mp4");
+                multipartContent.Add(videoContent);
+
+                responseResult = await HttpRequest.PostAsync<VideoSingleUpload>("videos", multipartContent, urlParam);
+            }
+
+            return responseResult;
+
+            //return HttpRequest.PostAsync<VideoSingleUpload>(,);
         }
     }
 }
