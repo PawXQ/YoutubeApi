@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using YoutubeApi.Enum;
 using YoutubeApi.Interface;
 using YoutubeApi.Model;
@@ -22,7 +23,7 @@ namespace YoutubeApi.Service
     {
         IHttpRequest HttpRequest { get; set; }
 
-        public string URL => "video";
+        public string URL => "videos";
 
         public Video(IHttpRequest httpRequest)
         {
@@ -51,7 +52,7 @@ namespace YoutubeApi.Service
             return HttpRequest.GetAsync<GetVideoInfo>(URL, urlParam);
         }
 
-        public Task<ResponseResult> VideoRating(string id, VideoRating videoRating)
+        public Task<ResponseResult> VideoRatingAsync(string id, VideoRating videoRating)
         {
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
@@ -142,6 +143,52 @@ namespace YoutubeApi.Service
             return responseResult;
 
             //return HttpRequest.PostAsync<VideoSingleUpload>(,);
+        }
+
+        public Task<ResponseResult> GetVideoResumableUploadURLAsync(string title, string categoryId = "22", string privacyStatus = "private")
+        {
+            Dictionary<string, string> urlParam = new Dictionary<string, string>
+            {
+                { "part", "snippet,status" },
+                { "uploadType", "resumable" }
+            };
+
+            var input = new
+            {
+                snippet = new
+                {
+                    title,
+                    categoryId
+                },
+                status = new
+                {
+                    privacyStatus = "unlisted",
+                    selfDeclaredMadeForKids = false
+                }
+            };
+
+            return HttpRequest.PostAsync(URL, input, urlParam);
+        }
+
+        public async Task<ResponseResult<VideoResumableUpload>> VideoResumableUploadAsync(string uploadID, FileStream fileStream)
+        {
+            ResponseResult<VideoResumableUpload> responseResult = null;
+
+            Dictionary<string, string> urlParam = new Dictionary<string, string>
+            {
+                { "part", "snippet,status" },
+                { "uploadType", "resumable" },
+                { "upload_id", uploadID}
+            };
+
+            using (HttpContent httpContent = new StreamContent(fileStream))
+            {
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("video/mp4");
+
+                responseResult = await HttpRequest.PostAsync<VideoResumableUpload>("videos", httpContent, urlParam);
+            }
+
+            return responseResult;
         }
     }
 }
