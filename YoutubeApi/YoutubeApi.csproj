@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CredentialManagement, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CredentialManagement.1.0.2\lib\net35\CredentialManagement.dll</HintPath>
+    </Reference>
     <Reference Include="HttpUtility">
       <HintPath>..\..\HttpUtility\HttpUtility\bin\Debug\HttpUtility.dll</HintPath>
     </Reference>
@@ -51,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\VideoRating.cs" />
+    <Compile Include="Interface\IAuth.cs" />
     <Compile Include="Interface\IBaseApi.cs" />
     <Compile Include="Interface\ICommentThread.cs" />
     <Compile Include="Interface\IComment.cs" />
@@ -70,6 +74,7 @@
     <Compile Include="Model\GetUnLikeVideo.cs" />
     <Compile Include="Model\GetVideoCommentThread.cs" />
     <Compile Include="Model\GetVideoInfo.cs" />
+    <Compile Include="Model\GoogleTokenResponse.cs" />
     <Compile Include="Model\HttpContent\MultipartRelatedContent.cs" />
     <Compile Include="Model\ModefiyComment.cs" />
     <Compile Include="Model\ModifyPlayList.cs" />
@@ -80,6 +85,7 @@
     <Compile Include="Model\VideoSingleUpload.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Auth.cs" />
     <Compile Include="Service\Comment.cs" />
     <Compile Include="Service\CommentThread.cs" />
     <Compile Include="Service\PlayList.cs" />

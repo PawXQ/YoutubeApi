@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YoutubeApi.Enum;
 using YoutubeApi.Model;
+using YoutubeApi.Service;
 using static YoutubeApi.Model.GetUnLikeVideo;
 
 
@@ -20,6 +21,10 @@ namespace YoutubeApi
         {
             Console.OutputEncoding = Encoding.UTF8;
 
+            Auth auth = new Auth();
+            GoogleTokenResponse googleTokenResponse = await auth.Login();
+
+            Console.WriteLine(googleTokenResponse.access_token);
 
             //string baseurl = "https://www.googleapis.com/youtube/v3/";
             string uploadurl = "https://www.googleapis.com/upload/youtube/v3/";
