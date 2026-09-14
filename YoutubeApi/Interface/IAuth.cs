@@ -10,5 +10,6 @@ namespace YoutubeApi.Interface
     internal interface IAuth
     {
         Task<GoogleTokenResponse> Login();
+        Task<GoogleTokenResponse> Rotate(string refreshToken);
     }
 }

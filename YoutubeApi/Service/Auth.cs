@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace YoutubeApi.Service
         string ClientId => "867177985894-3504rhd0nd0n2j9eubmqbbut7mc19l1r.apps.googleusercontent.com";
         string RedirectUri => "http://localhost:8080";
         string ResponseType => "code";
-        string Scope => "email%20profile";
+        string Scope => "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutubepartner";
         string CodeChallengeMethod => "S256";
         string AccountsBaseURL => "https://accounts.google.com/o/oauth2/v2/";
         string ClientSecret => "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";
@@ -36,6 +37,13 @@ namespace YoutubeApi.Service
             string apiCode = await GetApiCode(base64URL);
 
             GoogleTokenResponse googleTokenResponse = await GetApiAccessToken(codeVerifier, apiCode);
+
+            return googleTokenResponse;
+        }
+
+        public async Task<GoogleTokenResponse> Rotate(string refreshToken)
+        {
+            GoogleTokenResponse googleTokenResponse = await GetApiAccessToken(refreshToken);
 
             return googleTokenResponse;
         }
@@ -137,7 +145,7 @@ namespace YoutubeApi.Service
             return youTubeApiCode;
         }
 
-        private async Task<string> GetApiAccessToken(string codeVerifier, string apiCode)
+        private async Task<GoogleTokenResponse> GetApiAccessToken(string codeVerifier, string apiCode)
         {
             Dictionary<string, string> tokenRequestParams = new Dictionary<string, string>()
             {
@@ -147,6 +155,29 @@ namespace YoutubeApi.Service
                 { "code_verifier", codeVerifier },
                 { "grant_type", this.GrantType },
                 { "redirect_uri", this.RedirectUri },
+            };
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(this.Oauth2BaseURL);
+
+            FormUrlEncodedContent content = new FormUrlEncodedContent(tokenRequestParams);
+
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("token", content);
+            string rawContent = await httpResponseMessage.Content.ReadAsStringAsync();
+
+            GoogleTokenResponse googleTokenResponse = JsonConvert.DeserializeObject<GoogleTokenResponse>(rawContent);
+
+            return googleTokenResponse;
+        }
+
+        private async Task<GoogleTokenResponse> GetApiAccessToken(string refreshToken)
+        {
+            Dictionary<string, string> tokenRequestParams = new Dictionary<string, string>()
+            {
+                { "client_id", this.ClientId },
+                { "client_secret",this.ClientSecret },
+                { "grant_type", "refresh_token" },
+                { "refresh_token", refreshToken },
             };
 
             HttpClient client = new HttpClient();
