@@ -24,14 +24,7 @@ namespace YoutubeApi
             Console.OutputEncoding = Encoding.UTF8;
 
 
-            string baseurl = "https://www.googleapis.com/youtube/v3/";
-            //string uploadurl = "https://www.googleapis.com/upload/youtube/v3/";
-            //string token = "ya29.a0AdMD6EiB_HVqQb5TZWe5eh7l4WuKXXcUeenEsbF8VyZwx5fBiPNsFr__O0r8tBvYRHCKQ84OgfT_2-J2FEaqgMiG-5OUcKzOnSTVPLf6PsexGalEzQ4Mt1gOk2wugVjZiIHnP9nlPTrbzhXAgXrNQZoBhKsT_eMfmbCwxiFrRYrzCmyjyMXq00wirbDwV4_2qbX2BC4u_U7b5ak66hHs9PPnsi7DMYomNFV2Q8w-ZrQ2qpYdWXRUUNJtT14Pu1xiAHRIEXaPodQrcCpujQ452jJerTgaCgYKAdcSARcSFQHGX2MiDP9VfhrVb6pgUxemntbqsw0290";
-
-            //YoutubeContext youtubeContext = new YoutubeContext(baseurl, token);
-            //YoutubeContext youtubeContext = new YoutubeContext(baseurl, accessToken);
-            YoutubeContext youtubeContext = new YoutubeContext(baseurl);
-            //YoutubeContext youtubeContext = new YoutubeContext(uploadurl, token);
+            YoutubeContext youtubeContext = new YoutubeContext();
 
 
             ////9. GetUnlikeVideo

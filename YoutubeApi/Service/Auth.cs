@@ -22,9 +22,14 @@ namespace YoutubeApi.Service
         string Scope => "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.force-ssl%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutube.upload%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fyoutubepartner";
         string CodeChallengeMethod => "S256";
         string AccountsBaseURL => "https://accounts.google.com/o/oauth2/v2/";
-        string ClientSecret => "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";
+        string ClientSecret;
         string GrantType => "authorization_code";
         string Oauth2BaseURL => "https://oauth2.googleapis.com/";
+
+        public Auth(string clientSecret)
+        {
+            this.ClientSecret = clientSecret;
+        }
 
         public async Task<GoogleTokenResponse> Login()
         {

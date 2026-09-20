@@ -23,12 +23,13 @@ namespace YoutubeApi
         private IPlayListItem _playListItem;
         public IPlayListItem PlayListItem => _playListItem;
 
-        public YoutubeContext(string baseurl)
+        private string _baseurl = "https://www.googleapis.com/youtube/v3/";
+
+        public YoutubeContext()
         {
             CredentialService _credentialService = new CredentialService();
 
-            //IHttpRequest httpRequest = new HttpRequest(baseUrl: baseurl, token: token);
-            IHttpRequest httpRequest = new HttpRequest(baseUrl: baseurl, interceptor: new Interceptor(async x =>
+            IHttpRequest httpRequest = new HttpRequest(baseUrl: _baseurl, interceptor: new Interceptor(async x =>
             {
                 string YoutubeApiAccessToken = await _credentialService.GetToken();
                 x.Headers.Add("Authorization", $"Bearer {YoutubeApiAccessToken}");

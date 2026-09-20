@@ -18,8 +18,7 @@ namespace YoutubeApi.Service
         string refreshTokenKV { get; set; }
         string refreshTokenExpireTime { get; set; }
         string refreshTokenExpireTimeKV { get; set; }
-        string clientSecret => "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";
-        string clientSecretKV => "ClientSecret=" + this.clientSecret;
+        string clientSecretKV;
         public List<string> credentialPasswds { get; set; } = new List<string>();
         Dictionary<string, string> credentialPasswdsDict { get; set; } = new Dictionary<string, string>();
         long currentSeconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -44,17 +43,10 @@ namespace YoutubeApi.Service
 
         private void LoadToken()
         {
-            if (!storedCred.Load())
-            {
-                this.credentialPasswdsDict["ClientSecret"] = "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";
-            }
-            else
-            {
-                this.credentialPasswdsDict = storedCred.Password
-                .Split(new[] { ',' })
-                .Select(x => x.Split('='))
-                .ToDictionary(y => y[0], y => y[1]);
-            }
+            this.credentialPasswdsDict = storedCred.Password
+            .Split(new[] { ',' })
+            .Select(x => x.Split('='))
+            .ToDictionary(y => y[0], y => y[1]);
         }
 
         private void SaveToken()
@@ -70,8 +62,10 @@ namespace YoutubeApi.Service
 
             if (this.accessTokenExpireTime == null || long.Parse(this.accessTokenExpireTime) < currentSeconds)
             {
-                Auth auth = new Auth();
+                Auth auth = new Auth(this.credentialPasswdsDict["ClientSecret"]);
+
                 GoogleTokenResponse googleTokenResponse = null;
+
                 if (this.refreshTokenExpireTime == null || long.Parse(this.refreshTokenExpireTime) < currentSeconds)
                 {
                     googleTokenResponse = await auth.Login();
@@ -88,7 +82,7 @@ namespace YoutubeApi.Service
                 this.accessTokenExpireTimeKV = "AccessTokenExpireTime=" + (googleTokenResponse.expires_in + currentSeconds).ToString();
                 this.refreshTokenKV = "RefreshToken=" + googleTokenResponse.refresh_token;
                 this.refreshTokenExpireTimeKV = "RefreshTokenExpireTime=" + (currentSeconds + 604800).ToString();
-                //this.clientSecretKV = "ClientSecret=" + "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";
+                this.clientSecretKV = "ClientSecret=" + credentialPasswdsDict["ClientSecret"];
                 credentialPasswds.Add(this.accessTokenKV);
                 credentialPasswds.Add(this.accessTokenExpireTimeKV);
                 credentialPasswds.Add(this.refreshTokenKV);

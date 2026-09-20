@@ -106,6 +106,8 @@ namespace YoutubeApi.Service
 
         public async Task<ResponseResult<VideoSingleUpload>> VideoSingleUploadAsync(FileStream fileStream, string title, string categoryId = "22", string privacyStatus = "private")
         {
+            HttpRequest.BaseUrl = "https://www.googleapis.com/upload/youtube/v3/";
+
             ResponseResult<VideoSingleUpload> responseResult = null;
 
             Dictionary<string, string> urlParam = new Dictionary<string, string>
@@ -147,6 +149,8 @@ namespace YoutubeApi.Service
 
         public Task<ResponseResult> GetVideoResumableUploadURLAsync(string title, string categoryId = "22", string privacyStatus = "private")
         {
+            HttpRequest.BaseUrl = "https://www.googleapis.com/upload/youtube/v3/";
+
             Dictionary<string, string> urlParam = new Dictionary<string, string>
             {
                 { "part", "snippet,status" },
@@ -172,6 +176,8 @@ namespace YoutubeApi.Service
 
         public async Task<ResponseResult<VideoResumableUpload>> VideoResumableUploadAsync(string uploadID, FileStream fileStream)
         {
+            HttpRequest.BaseUrl = "https://www.googleapis.com/upload/youtube/v3/";
+
             ResponseResult<VideoResumableUpload> responseResult = null;
 
             Dictionary<string, string> urlParam = new Dictionary<string, string>
