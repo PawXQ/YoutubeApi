@@ -88,6 +88,7 @@
     <Compile Include="Service\Auth.cs" />
     <Compile Include="Service\Comment.cs" />
     <Compile Include="Service\CommentThread.cs" />
+    <Compile Include="Service\CredentialService.cs" />
     <Compile Include="Service\PlayList.cs" />
     <Compile Include="Service\PlayListItem.cs" />
     <Compile Include="Service\Search.cs" />

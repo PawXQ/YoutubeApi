@@ -1,4 +1,5 @@
 ﻿using HttpUtility.Interface;
+using HttpUtility.Model;
 using HttpUtility.Utility;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,19 @@ namespace YoutubeApi
         private IPlayListItem _playListItem;
         public IPlayListItem PlayListItem => _playListItem;
 
-        public YoutubeContext(string baseurl, string token)
+        public YoutubeContext(string baseurl)
         {
-            IHttpRequest httpRequest = new HttpRequest(baseUrl: baseurl, token: token);
+            CredentialService _credentialService = new CredentialService();
+
+            //IHttpRequest httpRequest = new HttpRequest(baseUrl: baseurl, token: token);
+            IHttpRequest httpRequest = new HttpRequest(baseUrl: baseurl, interceptor: new Interceptor(async x =>
+            {
+                string YoutubeApiAccessToken = await _credentialService.GetToken();
+                x.Headers.Add("Authorization", $"Bearer {YoutubeApiAccessToken}");
+
+                return InterceptorModel.ReplaceReuqest(x);
+            }));
+
             _video = new Video(httpRequest);
             _playList = new PlayList(httpRequest);
             _playListItem = new PlayListItem(httpRequest);

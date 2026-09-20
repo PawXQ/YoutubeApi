@@ -23,138 +23,14 @@ namespace YoutubeApi
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            string accessToken;
-            string accessTokenKV;
-            string accessTokenExpireTime;
-            string accessTokenExpireTimeKV;
-            string refreshToken;
-            string refreshTokenKV;
-            string refreshTokenExpireTime;
-            string refreshTokenExpireTimeKV;
-            string clientSecret = "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";
-            string clientSecretKV = "ClientSecret=" + clientSecret;
-            List<string> credentialPasswds = new List<string>();
-            Dictionary<string, string> credentialPasswdsDict = new Dictionary<string, string>();
-            long currentSeconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-            var targetId = "AAAA";
-            var storedCred = new Credential { Target = targetId };
-            if (!storedCred.Load())
-            {
-                credentialPasswdsDict["ClientSecret"] = "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";
-            }
-            else
-            {
-                credentialPasswdsDict = storedCred.Password
-                .Split(new[] { ',' })
-                .Select(x => x.Split('='))
-                .ToDictionary(y => y[0], y => y[1]);
-            }
-
-            accessToken = credentialPasswdsDict.ContainsKey("AccessToken") ? credentialPasswdsDict["AccessToken"] : null;
-            accessTokenExpireTime = credentialPasswdsDict.ContainsKey("AccessTokenExpireTime") ? credentialPasswdsDict["AccessTokenExpireTime"] : null;
-            refreshToken = credentialPasswdsDict.ContainsKey("RefreshToken") ? credentialPasswdsDict["RefreshToken"] : null;
-            refreshTokenExpireTime = credentialPasswdsDict.ContainsKey("RefreshTokenExpireTime") ? credentialPasswdsDict["RefreshTokenExpireTime"] : null;
-
-
-            if (accessTokenExpireTime == null || long.Parse(accessTokenExpireTime) < currentSeconds)
-            {
-                Auth auth = new Auth();
-                GoogleTokenResponse googleTokenResponse = null;
-                if (refreshTokenExpireTime == null || long.Parse(refreshTokenExpireTime) < currentSeconds)
-                {
-                    googleTokenResponse = await auth.Login();
-
-                    Console.WriteLine(googleTokenResponse.access_token);
-                }
-                else
-                {
-                    googleTokenResponse = await auth.Rotate(refreshToken);
-                    // rotate
-                }
-
-                accessTokenKV = "AccessToken=" + googleTokenResponse.access_token;
-                accessTokenExpireTimeKV = "AccessTokenExpireTime=" + (googleTokenResponse.expires_in + currentSeconds).ToString();
-                refreshTokenKV = "RefreshToken=" + googleTokenResponse.refresh_token;
-                refreshTokenExpireTimeKV = "RefreshTokenExpireTime=" + (currentSeconds + 604800).ToString();
-                clientSecretKV = "ClientSecret=" + "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";
-                credentialPasswds.Add(accessTokenKV);
-                credentialPasswds.Add(accessTokenExpireTimeKV);
-                credentialPasswds.Add(refreshTokenKV);
-                credentialPasswds.Add(refreshTokenExpireTimeKV);
-                credentialPasswds.Add(clientSecretKV);
-
-                var cred = new Credential(
-                "YoutubeApi",
-                // 亦可用加密過的密碼取代明碼密碼，再多一道鎖
-                string.Join(",", credentialPasswds),
-                targetId,
-                CredentialType.Generic);
-                cred.Save();
-            }
-
-            //Auth auth = new Auth();
-            //GoogleTokenResponse googleTokenResponse = await auth.Login();
-
-            //Console.WriteLine(googleTokenResponse.access_token);
-
-            //long seconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-            //accessTokenKV = "AccessToken=" + googleTokenResponse.access_token;
-            //accessTokenExpireTimeKV = "AccessTokenExpireTime=" + (googleTokenResponse.expires_in + seconds).ToString();
-            //refreshTokenKV = "RefreshToken=" + googleTokenResponse.refresh_token;
-            //refreshTokenExpireTimeKV = "RefreshTokenExpireTime=" + (seconds + 604800).ToString();
-            //clientSecretKV = "ClientSecret=" + "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";
-            //credentialPasswds.Add(accessTokenKV);
-            //credentialPasswds.Add(accessTokenExpireTimeKV);
-            //credentialPasswds.Add(refreshTokenKV);
-            //credentialPasswds.Add(refreshTokenExpireTimeKV);
-            //credentialPasswds.Add(clientSecretKV);
-
-            //// CredentialManagement
-            ////var targetId = "AAAA";
-
-            //// 保存帳號密碼
-            //var cred = new Credential(
-            //    "YoutubeApi",
-            //    // 亦可用加密過的密碼取代明碼密碼，再多一道鎖
-            //    string.Join(", ", credentialPasswds),
-            //    targetId,
-            //    CredentialType.Generic);
-            //cred.Save();
-
-            //讀取帳號密碼
-            //var storedCred = new Credential { Target = targetId };
-            //if (storedCred.Load())
-            //{
-            //    Console.WriteLine($"Username = {storedCred.Username}");
-            //    Console.WriteLine($"Password = {storedCred.Password}");
-            //}
-
-            if (!storedCred.Load())
-            {
-                credentialPasswdsDict["ClientSecret"] = "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";
-            }
-            else
-            {
-                credentialPasswdsDict = storedCred.Password
-                .Split(new[] { ',' })
-                .Select(x => x.Split('='))
-                .ToDictionary(y => y[0], y => y[1]);
-            }
-
-
-
-            accessToken = credentialPasswdsDict.ContainsKey("AccessToken") ? credentialPasswdsDict["AccessToken"] : null;
-
-
 
             string baseurl = "https://www.googleapis.com/youtube/v3/";
             //string uploadurl = "https://www.googleapis.com/upload/youtube/v3/";
-            string token = "ya29.a0AdMD6EiB_HVqQb5TZWe5eh7l4WuKXXcUeenEsbF8VyZwx5fBiPNsFr__O0r8tBvYRHCKQ84OgfT_2-J2FEaqgMiG-5OUcKzOnSTVPLf6PsexGalEzQ4Mt1gOk2wugVjZiIHnP9nlPTrbzhXAgXrNQZoBhKsT_eMfmbCwxiFrRYrzCmyjyMXq00wirbDwV4_2qbX2BC4u_U7b5ak66hHs9PPnsi7DMYomNFV2Q8w-ZrQ2qpYdWXRUUNJtT14Pu1xiAHRIEXaPodQrcCpujQ452jJerTgaCgYKAdcSARcSFQHGX2MiDP9VfhrVb6pgUxemntbqsw0290";
+            //string token = "ya29.a0AdMD6EiB_HVqQb5TZWe5eh7l4WuKXXcUeenEsbF8VyZwx5fBiPNsFr__O0r8tBvYRHCKQ84OgfT_2-J2FEaqgMiG-5OUcKzOnSTVPLf6PsexGalEzQ4Mt1gOk2wugVjZiIHnP9nlPTrbzhXAgXrNQZoBhKsT_eMfmbCwxiFrRYrzCmyjyMXq00wirbDwV4_2qbX2BC4u_U7b5ak66hHs9PPnsi7DMYomNFV2Q8w-ZrQ2qpYdWXRUUNJtT14Pu1xiAHRIEXaPodQrcCpujQ452jJerTgaCgYKAdcSARcSFQHGX2MiDP9VfhrVb6pgUxemntbqsw0290";
 
             //YoutubeContext youtubeContext = new YoutubeContext(baseurl, token);
-            YoutubeContext youtubeContext = new YoutubeContext(baseurl, accessToken);
+            //YoutubeContext youtubeContext = new YoutubeContext(baseurl, accessToken);
+            YoutubeContext youtubeContext = new YoutubeContext(baseurl);
             //YoutubeContext youtubeContext = new YoutubeContext(uploadurl, token);
 
 
