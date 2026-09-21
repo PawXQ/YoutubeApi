@@ -8,7 +8,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface IComment : IBaseApi
+    public interface IComment : IBaseApi
     {
         //17. GetCommentListResponseAsync
         Task<ResponseResult<GetCommentListResponse>> GetCommentListResponseAsync(string parentId);

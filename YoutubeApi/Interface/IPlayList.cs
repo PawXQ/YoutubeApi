@@ -8,7 +8,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface IPlayList : IBaseApi
+    public interface IPlayList : IBaseApi
     {
         //13. CreatePlayList
         Task<ResponseResult<CreatePlayList>> CreatePlayListAsync(string title);

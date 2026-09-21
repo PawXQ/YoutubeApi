@@ -13,7 +13,7 @@ using YoutubeApi.Service;
 
 namespace YoutubeApi
 {
-    internal class YoutubeContext : IYoutubeContext
+    public class YoutubeContext : IYoutubeContext
     {
         private IComment _comment;
         public IComment Comment => _comment;
@@ -58,7 +58,6 @@ namespace YoutubeApi
             _search = new Search(httpRequest);
             _subscription = new Subscription(httpRequest);
             _video = new Video(httpRequest);
-
         }
     }
 }

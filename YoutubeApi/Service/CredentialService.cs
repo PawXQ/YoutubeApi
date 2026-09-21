@@ -28,6 +28,7 @@ namespace YoutubeApi.Service
         public CredentialService()
         {
             this.storedCred = new Credential() { Target = this.targetId, PersistanceType = PersistanceType.LocalComputer };
+            storedCred.Load();
         }
 
         public async Task<string> GetToken()

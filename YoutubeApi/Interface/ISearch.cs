@@ -8,7 +8,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface ISearch : IBaseApi
+    public interface ISearch : IBaseApi
     {
         //1. SearchVideo
         Task<ResponseResult<SearchVideo>> SearchVideoAsync(string query);

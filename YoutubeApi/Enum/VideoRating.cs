@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeApi.Enum
 {
-    internal enum VideoRating
+    public enum VideoRating
     {
         None = 0,
         Like = 1,

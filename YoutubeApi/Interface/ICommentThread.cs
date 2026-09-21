@@ -8,7 +8,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface ICommentThread : IBaseApi
+    public interface ICommentThread : IBaseApi
     {
         //16. GetVideoCommentThread
         Task<ResponseResult<GetVideoCommentThread>> GetVideoCommentThreadAsync(string videoId);

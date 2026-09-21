@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeApi.Model
 {
-    internal class VideoResumableUpload
+    public class VideoResumableUpload
     {
         public string kind { get; set; }
         public string etag { get; set; }

@@ -8,7 +8,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface IPlayListItem : IBaseApi
+    public interface IPlayListItem : IBaseApi
     {
         //4. AddVideoItem
         Task<ResponseResult<AddVideoItem>> AddVideoItemAsync(string playlistId, string videoId);

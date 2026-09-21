@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeApi.Interface
 {
-    internal interface IYoutubeContext
+    public interface IYoutubeContext
     {
         IVideo Video { get; }
         IPlayList PlayList { get; }

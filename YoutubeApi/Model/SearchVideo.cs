@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeApi.Model
 {
-    internal class SearchVideo
+    public class SearchVideo
     {
         public string kind { get; set; }
         public string etag { get; set; }

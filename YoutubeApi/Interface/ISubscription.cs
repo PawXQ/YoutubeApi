@@ -8,7 +8,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface ISubscription : IBaseApi
+    public interface ISubscription : IBaseApi
     {
         //11. SubscriptionChannel
         Task<ResponseResult<SubscriptionChannel>> SubscriptionChannelAsync(string channelId);

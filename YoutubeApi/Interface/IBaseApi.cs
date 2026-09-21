@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeApi.Interface
 {
-    internal interface IBaseApi
+    public interface IBaseApi
     {
         string URL { get; }
     }

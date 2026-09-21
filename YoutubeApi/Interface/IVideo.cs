@@ -11,7 +11,7 @@ using YoutubeApi.Model;
 
 namespace YoutubeApi.Interface
 {
-    internal interface IVideo : IBaseApi
+    public interface IVideo : IBaseApi
     {
         //2. GetVideoInfo
         Task<ResponseResult<GetVideoInfo>> GetVideoInfoAsync(string id);

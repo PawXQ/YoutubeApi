@@ -19,7 +19,7 @@ using YoutubeApi.Model.HttpContent;
 
 namespace YoutubeApi.Service
 {
-    internal class Video : IVideo
+    public class Video : IVideo
     {
         IHttpRequest HttpRequest { get; set; }
 

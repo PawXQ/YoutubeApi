@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YoutubeApi.Model
 {
-    internal class GoogleTokenResponse
+    public class GoogleTokenResponse
     {
         public string access_token { get; set; }
         public int expires_in { get; set; }
