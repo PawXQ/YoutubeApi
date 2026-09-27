@@ -27,7 +27,7 @@ namespace YoutubeApi.Service
 
         public CredentialService()
         {
-            this.storedCred = new Credential() { Target = this.targetId, PersistanceType = PersistanceType.LocalComputer };
+            this.storedCred = new Credential() { Username = "YoutubeApi", Target = this.targetId, PersistanceType = PersistanceType.LocalComputer };
             storedCred.Load();
         }
 
@@ -67,7 +67,7 @@ namespace YoutubeApi.Service
 
                 GoogleTokenResponse googleTokenResponse = null;
 
-                if (this.refreshTokenExpireTime == null || long.Parse(this.refreshTokenExpireTime) < currentSeconds)
+                if (this.refreshTokenExpireTime == null || long.Parse(this.refreshTokenExpireTime) < currentSeconds || string.IsNullOrEmpty(this.refreshToken))
                 {
                     googleTokenResponse = await auth.Login();
 
@@ -90,13 +90,8 @@ namespace YoutubeApi.Service
                 credentialPasswds.Add(this.refreshTokenExpireTimeKV);
                 credentialPasswds.Add(this.clientSecretKV);
 
-                var cred = new Credential(
-                "YoutubeApi",
-                // 亦可用加密過的密碼取代明碼密碼，再多一道鎖
-                string.Join(",", credentialPasswds),
-                targetId,
-                CredentialType.Generic);
-                cred.Save();
+                this.storedCred.Password = string.Join(",", credentialPasswds);
+                this.storedCred.Save();
             }
         }
     }
