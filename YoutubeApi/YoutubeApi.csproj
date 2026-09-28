@@ -59,6 +59,7 @@
     <Compile Include="Enum\VideoRating.cs" />
     <Compile Include="Interface\IAuth.cs" />
     <Compile Include="Interface\IBaseApi.cs" />
+    <Compile Include="Interface\IChannels.cs" />
     <Compile Include="Interface\ICommentThread.cs" />
     <Compile Include="Interface\IComment.cs" />
     <Compile Include="Interface\IPlayList.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Model\AddVideoItem.cs" />
     <Compile Include="Model\CreatePlayList.cs" />
     <Compile Include="Model\DeleteResult.cs" />
+    <Compile Include="Model\GetChannelsInfo.cs" />
     <Compile Include="Model\GetCommentListResponse.cs" />
     <Compile Include="Model\GetLikeVideo.cs" />
     <Compile Include="Model\GetPublishVideo.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Auth.cs" />
+    <Compile Include="Service\Channels.cs" />
     <Compile Include="Service\Comment.cs" />
     <Compile Include="Service\CommentThread.cs" />
     <Compile Include="Service\CredentialService.cs" />

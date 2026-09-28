@@ -15,6 +15,9 @@ namespace YoutubeApi
 {
     public class YoutubeContext : IYoutubeContext
     {
+        private IChannels _channels;
+        public IChannels Channels => _channels;
+
         private IComment _comment;
         public IComment Comment => _comment;
 
@@ -51,6 +54,7 @@ namespace YoutubeApi
                 return InterceptorModel.ReplaceReuqest(x);
             }));
 
+            _channels = new Channels(httpRequest);
             _comment = new Comment(httpRequest);
             _commentThread = new CommentThread(httpRequest);
             _playList = new PlayList(httpRequest);
